@@ -1,0 +1,174 @@
+2025-06-16 17:57:54,128 - INFO - 正在使用 local 加载A股股票列表...
+2025-06-16 17:57:54,128 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:54,130 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:54,130 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:54,130 - INFO - 成功加载 45 只股票信息
+2025-06-16 17:57:54,137 - INFO - 正在使用 local 加载A股股票列表...
+2025-06-16 17:57:54,137 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:54,138 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:54,138 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:54,138 - INFO - 成功加载 45 只股票信息
+2025-06-16 17:57:54,139 - INFO - 正在使用 local 加载A股股票列表...
+2025-06-16 17:57:54,139 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:54,140 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:54,140 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:54,140 - INFO - 成功加载 45 只股票信息
+2025-06-16 17:57:54,141 - INFO - 正在读取文件: test_quoted_codes.csv
+2025-06-16 17:57:54,141 - INFO - 检测到文件格式: csv
+2025-06-16 17:57:54,142 - INFO - CSV文件读取成功: 编码=utf-8-sig, 分隔符=','
+2025-06-16 17:57:54,142 - INFO - 成功读取文件，共 5 行数据
+2025-06-16 17:57:54,142 - INFO - 列名: ['股票代码', '入选价格']
+2025-06-16 17:57:54,142 - INFO - 使用股票名称列: 股票代码
+2025-06-16 17:57:54,143 - INFO - 使用价格列: 入选价格
+2025-06-16 17:57:54,143 - INFO - 使用股票代码列: 股票代码
+2025-06-16 17:57:54,146 - INFO - 检测到股票代码列，将使用代码补全模式
+2025-06-16 17:57:54,146 - INFO - 处理后有效数据: 5 行
+2025-06-16 17:57:54,147 - INFO - 开始进行股票代码补全...
+2025-06-16 17:57:54,147 - INFO - 处理第 1/5 行: '852'
+2025-06-16 17:57:54,248 - INFO - 处理第 2/5 行: "2208"
+2025-06-16 17:57:54,349 - INFO - 处理第 3/5 行: '3018'
+2025-06-16 17:57:54,450 - INFO - 处理第 4/5 行: 688001
+2025-06-16 17:57:54,551 - INFO - 处理第 5/5 行: '301223'
+2025-06-16 17:57:54,655 - INFO - 代码补全结果已保存到: test_result_basic.csv
+2025-06-16 17:57:54,656 - INFO - 补全统计:
+2025-06-16 17:57:54,656 - INFO -   总数: 5
+2025-06-16 17:57:54,656 - INFO -   成功补全: 5 (100.0%)
+2025-06-16 17:57:54,656 - INFO -   格式无效: 0 (0.0%)
+2025-06-16 17:57:54,656 - INFO -   代码不存在: 0 (0.0%)
+2025-06-16 17:57:54,656 - INFO - 正在读取文件: test_quoted_codes.csv
+2025-06-16 17:57:54,657 - INFO - 检测到文件格式: csv
+2025-06-16 17:57:54,658 - INFO - CSV文件读取成功: 编码=utf-8-sig, 分隔符=','
+2025-06-16 17:57:54,658 - INFO - 成功读取文件，共 5 行数据
+2025-06-16 17:57:54,658 - INFO - 列名: ['股票代码', '入选价格']
+2025-06-16 17:57:54,658 - INFO - 使用股票名称列: 股票代码
+2025-06-16 17:57:54,658 - INFO - 使用价格列: 入选价格
+2025-06-16 17:57:54,658 - INFO - 使用股票代码列: 股票代码
+2025-06-16 17:57:54,660 - INFO - 检测到股票代码列，将使用代码补全模式
+2025-06-16 17:57:54,661 - INFO - 处理后有效数据: 5 行
+2025-06-16 17:57:54,662 - INFO - 开始进行股票代码补全...
+2025-06-16 17:57:54,662 - INFO - 处理第 1/5 行: '852'
+2025-06-16 17:57:54,662 - INFO - 开始交叉验证股票信息: 000852 - 石化机械
+2025-06-16 17:57:54,663 - INFO - 使用 akshare 验证股票信息: 000852
+2025-06-16 17:57:54,663 - INFO - 正在从AKShare加载A股股票列表...
+2025-06-16 17:57:54,691 - ERROR - AKShare加载失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:54,692 - WARNING - akshare 验证失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:55,192 - INFO - 使用 sina 验证股票信息: 000852
+2025-06-16 17:57:55,192 - INFO - 正在从新浪财经加载A股股票列表...
+2025-06-16 17:57:55,193 - WARNING - 新浪财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:55,193 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:55,194 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:55,195 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:55,696 - INFO - 使用 tencent 验证股票信息: 000852
+2025-06-16 17:57:55,696 - INFO - 正在从腾讯财经加载A股股票列表...
+2025-06-16 17:57:55,696 - WARNING - 腾讯财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:55,697 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:55,698 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:55,698 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:56,199 - INFO - 使用 eastmoney 验证股票信息: 000852
+2025-06-16 17:57:56,199 - INFO - 正在从东方财富加载A股股票列表...
+2025-06-16 17:57:56,199 - WARNING - 东方财富API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:56,199 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:56,200 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:56,200 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:56,803 - INFO - 处理第 2/5 行: "2208"
+2025-06-16 17:57:56,803 - INFO - 开始交叉验证股票信息: 002208 - 合肥城建
+2025-06-16 17:57:56,803 - INFO - 使用 akshare 验证股票信息: 002208
+2025-06-16 17:57:56,803 - INFO - 正在从AKShare加载A股股票列表...
+2025-06-16 17:57:56,929 - ERROR - AKShare加载失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:56,929 - WARNING - akshare 验证失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:57,430 - INFO - 使用 sina 验证股票信息: 002208
+2025-06-16 17:57:57,430 - INFO - 正在从新浪财经加载A股股票列表...
+2025-06-16 17:57:57,430 - WARNING - 新浪财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:57,430 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:57,431 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:57,432 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:57,933 - INFO - 使用 tencent 验证股票信息: 002208
+2025-06-16 17:57:57,933 - INFO - 正在从腾讯财经加载A股股票列表...
+2025-06-16 17:57:57,933 - WARNING - 腾讯财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:57,933 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:57,934 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:57,935 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:58,435 - INFO - 使用 eastmoney 验证股票信息: 002208
+2025-06-16 17:57:58,436 - INFO - 正在从东方财富加载A股股票列表...
+2025-06-16 17:57:58,436 - WARNING - 东方财富API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:58,436 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:58,437 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:58,437 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:57:59,039 - INFO - 处理第 3/5 行: '3018'
+2025-06-16 17:57:59,040 - INFO - 开始交叉验证股票信息: 300018 - 中元股份
+2025-06-16 17:57:59,040 - INFO - 使用 akshare 验证股票信息: 300018
+2025-06-16 17:57:59,040 - INFO - 正在从AKShare加载A股股票列表...
+2025-06-16 17:57:59,172 - ERROR - AKShare加载失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:59,172 - WARNING - akshare 验证失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:57:59,673 - INFO - 使用 sina 验证股票信息: 300018
+2025-06-16 17:57:59,673 - INFO - 正在从新浪财经加载A股股票列表...
+2025-06-16 17:57:59,673 - WARNING - 新浪财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:57:59,673 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:57:59,674 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:57:59,675 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:00,176 - INFO - 使用 tencent 验证股票信息: 300018
+2025-06-16 17:58:00,176 - INFO - 正在从腾讯财经加载A股股票列表...
+2025-06-16 17:58:00,176 - WARNING - 腾讯财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:00,176 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:00,178 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:00,178 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:00,679 - INFO - 使用 eastmoney 验证股票信息: 300018
+2025-06-16 17:58:00,679 - INFO - 正在从东方财富加载A股股票列表...
+2025-06-16 17:58:00,679 - WARNING - 东方财富API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:00,680 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:00,681 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:00,681 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:01,282 - INFO - 处理第 4/5 行: 688001
+2025-06-16 17:58:01,283 - INFO - 开始交叉验证股票信息: 688001 - 华兴源创
+2025-06-16 17:58:01,283 - INFO - 使用 akshare 验证股票信息: 688001
+2025-06-16 17:58:01,283 - INFO - 正在从AKShare加载A股股票列表...
+2025-06-16 17:58:01,414 - ERROR - AKShare加载失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:58:01,414 - WARNING - akshare 验证失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:58:01,914 - INFO - 使用 sina 验证股票信息: 688001
+2025-06-16 17:58:01,915 - INFO - 正在从新浪财经加载A股股票列表...
+2025-06-16 17:58:01,915 - WARNING - 新浪财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:01,915 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:01,916 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:01,916 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:02,417 - INFO - 使用 tencent 验证股票信息: 688001
+2025-06-16 17:58:02,417 - INFO - 正在从腾讯财经加载A股股票列表...
+2025-06-16 17:58:02,417 - WARNING - 腾讯财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:02,417 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:02,418 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:02,419 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:02,920 - INFO - 使用 eastmoney 验证股票信息: 688001
+2025-06-16 17:58:02,920 - INFO - 正在从东方财富加载A股股票列表...
+2025-06-16 17:58:02,920 - WARNING - 东方财富API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:02,920 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:02,921 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:02,922 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:03,524 - INFO - 处理第 5/5 行: '301223'
+2025-06-16 17:58:03,525 - INFO - 开始交叉验证股票信息: 301223 - 中荣股份
+2025-06-16 17:58:03,525 - INFO - 使用 akshare 验证股票信息: 301223
+2025-06-16 17:58:03,525 - INFO - 正在从AKShare加载A股股票列表...
+2025-06-16 17:58:03,647 - ERROR - AKShare加载失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:58:03,647 - WARNING - akshare 验证失败: HTTPSConnectionPool(host='82.push2.eastmoney.com', port=443): Max retries exceeded with url: /api/qt/clist/get?pn=1&pz=100&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f12&fs=m%3A0+t%3A6%2Cm%3A0+t%3A80%2Cm%3A1+t%3A2%2Cm%3A1+t%3A23%2Cm%3A0+t%3A81+s%3A2048&fields=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6%2Cf7%2Cf8%2Cf9%2Cf10%2Cf12%2Cf13%2Cf14%2Cf15%2Cf16%2Cf17%2Cf18%2Cf20%2Cf21%2Cf23%2Cf24%2Cf25%2Cf22%2Cf11%2Cf62%2Cf128%2Cf136%2Cf115%2Cf152 (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+2025-06-16 17:58:04,148 - INFO - 使用 sina 验证股票信息: 301223
+2025-06-16 17:58:04,148 - INFO - 正在从新浪财经加载A股股票列表...
+2025-06-16 17:58:04,148 - WARNING - 新浪财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:04,148 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:04,149 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:04,150 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:04,651 - INFO - 使用 tencent 验证股票信息: 301223
+2025-06-16 17:58:04,651 - INFO - 正在从腾讯财经加载A股股票列表...
+2025-06-16 17:58:04,651 - WARNING - 腾讯财经API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:04,651 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:04,652 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:04,652 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:05,154 - INFO - 使用 eastmoney 验证股票信息: 301223
+2025-06-16 17:58:05,154 - INFO - 正在从东方财富加载A股股票列表...
+2025-06-16 17:58:05,154 - WARNING - 东方财富API接口正在开发中，暂时使用本地数据源
+2025-06-16 17:58:05,154 - INFO - 正在从本地数据源加载A股股票列表...
+2025-06-16 17:58:05,155 - INFO - 本地股票数据加载完成，共 45 只股票
+2025-06-16 17:58:05,155 - INFO - 本地数据源成功加载 45 只股票信息
+2025-06-16 17:58:05,761 - INFO - 代码补全结果已保存到: test_result_validated.csv
+2025-06-16 17:58:05,762 - INFO - 补全统计:
+2025-06-16 17:58:05,763 - INFO -   总数: 5
+2025-06-16 17:58:05,763 - INFO -   成功补全: 5 (100.0%)
+2025-06-16 17:58:05,763 - INFO -   格式无效: 0 (0.0%)
+2025-06-16 17:58:05,763 - INFO -   代码不存在: 0 (0.0%)
