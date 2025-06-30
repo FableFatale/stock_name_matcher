@@ -1,0 +1,268 @@
+# Python 环境配置文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# 项目特定的忽略文件
+
+# 日志文件
+logs/
+*.log
+debug.log
+app.log
+stock_update.log
+
+# 结果文件夹
+result/
+results/
+output/
+outputs/
+
+# 上传文件夹
+uploads/
+
+# 缓存文件夹
+cache/
+.cache/
+
+# 临时文件夹
+temp/
+tmp/
+.tmp/
+
+# 备份文件夹
+backup/
+backups/
+
+# 测试相关文件夹和文件
+test_results/
+test_data/
+test_output/
+*_test.csv
+*_test.xlsx
+*_test.txt
+test_*.csv
+test_*.xlsx
+test_*.txt
+
+# 股票数据文件（可选择性忽略）
+data/*.csv
+data/*.xlsx
+data/*.txt
+stock_name_list/*.csv
+stock_name_list/*.xlsx
+stock_name_list/*.txt
+
+# 新股票文件目录
+new_stock_files/processed/
+new_stock_files/*.csv
+new_stock_files/*.xlsx
+new_stock_files/*.txt
+
+# 示例和演示文件
+example_*.csv
+example_*.xlsx
+demo_*.csv
+demo_*.xlsx
+sample_*.csv
+sample_*.xlsx
+
+# 临时CSV/Excel文件
+*.tmp.csv
+*.tmp.xlsx
+*_temp.csv
+*_temp.xlsx
+*_backup.csv
+*_backup.xlsx
+
+# 系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+desktop.ini
+
+# 编辑器临时文件
+*~
+*.swp
+*.swo
+*#
+.#*
+
+# 压缩文件
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.tar.bz2
+
+# 配置文件（包含敏感信息）
+config.ini
+settings.ini
+.env.local
+.env.production
+
+# 开发工具文件
+*.vsix
+*.deb
+*.rpm
+
+# 性能分析文件
+*.prof
+*.pstats
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 报告文件
+*_report.json
+*_report.html
+*_report.txt
+FINAL_TEST_REPORT.md
+
+# 文档临时文件
+~$*.docx
+~$*.xlsx
+~$*.pptx
