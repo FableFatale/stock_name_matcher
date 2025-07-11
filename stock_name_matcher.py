@@ -1268,7 +1268,7 @@ class StockNameMatcher:
     def process_excel_file(self, file_path: str, output_path: str = None,
                           name_column: str = None, price_column: str = None, code_column: str = None) -> str:
         """
-        处理Excel文件，自动判断是进行股票名称匹配还是股票代码补全
+        处理Excel文件，自动判断是进行股票名称匹配还是股票代码名称补全
 
         Args:
             file_path: 输入Excel文件路径
@@ -1464,7 +1464,7 @@ class StockNameMatcher:
     def _process_standard(self, input_df: pd.DataFrame, enable_cross_validation: bool) -> list:
         """标准处理模式"""
         results = []
-        logger.info("开始进行股票代码补全...")
+        logger.info("开始进行股票代码名称补全...")
 
         for idx, row in input_df.iterrows():
             logger.info(f"处理第 {idx + 1}/{len(input_df)} 行: {row['股票代码']}")
@@ -1491,7 +1491,7 @@ class StockNameMatcher:
 
 def main():
     """主函数"""
-    parser = argparse.ArgumentParser(description='股票名称匹配器 - 支持根据股票名称匹配代码，或根据股票代码补全名称')
+    parser = argparse.ArgumentParser(description='股票代码名称补全工具 - 支持根据股票名称匹配代码，或根据股票代码补全名称')
     parser.add_argument('input_file', help='输入的Excel或CSV文件路径')
     parser.add_argument('-o', '--output', help='输出CSV文件路径')
     parser.add_argument('-n', '--name-column', help='股票名称列名')

@@ -242,6 +242,12 @@ settings.ini
 .env.local
 .env.production
 
+# 股票数据管理系统配置文件
+config.json
+.encryption_key
+api_keys.json
+sensitive_config.json
+
 # 开发工具文件
 *.vsix
 *.deb

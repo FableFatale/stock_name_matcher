@@ -1,4 +1,4 @@
-// 股票代码补全工具 - 前端JavaScript
+// 股票代码名称补全工具 - 前端JavaScript
 
 let currentFile = null;
 let resultFileName = null;
@@ -16,10 +16,23 @@ const enableCrossValidation = document.getElementById('enableCrossValidation');
 const enableOptimization = document.getElementById('enableOptimization');
 const processBtn = document.getElementById('processBtn');
 
+// 数据源建议相关元素
+const dataSourceSuggestion = document.getElementById('dataSourceSuggestion');
+const suggestionMessage = document.getElementById('suggestionMessage');
+const goToApiConfigBtn = document.getElementById('goToApiConfigBtn');
+
 // 股票数据管理相关元素
 const stockDataFile = document.getElementById('stockDataFile');
 const uploadStockDataBtn = document.getElementById('uploadStockDataBtn');
 const autoUpdateBtn = document.getElementById('autoUpdateBtn');
+
+// API Key配置相关元素
+const akshareApiKey = document.getElementById('akshareApiKey');
+const tushareApiKey = document.getElementById('tushareApiKey');
+const alphaVantageApiKey = document.getElementById('alphaVantageApiKey');
+const quandlApiKey = document.getElementById('quandlApiKey');
+const saveApiKeysBtn = document.getElementById('saveApiKeysBtn');
+const testAllConnectionsBtn = document.getElementById('testAllConnectionsBtn');
 const progressContainer = document.getElementById('progressContainer');
 const resultSection = document.getElementById('resultSection');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -220,7 +233,7 @@ function processFile() {
     };
     
     // 根据选项显示不同的进度信息
-    let progressMessage = '正在处理股票代码补全';
+    let progressMessage = '正在处理股票代码名称补全';
     if (enableOptimization.checked) {
         progressMessage += '（🚀 性能优化模式）';
     }
@@ -255,6 +268,21 @@ function processFile() {
             showAlert('处理完成！', 'success');
         } else {
             showAlert(data.error || '处理失败', 'danger');
+
+            // 如果是数据源相关的错误，记录失败并检查建议
+            const errorMessage = data.error || '';
+            const selectedSource = apiSource.value;
+
+            if (selectedSource && selectedSource !== 'local') {
+                if (errorMessage.includes('超时') || errorMessage.includes('timeout') ||
+                    errorMessage.includes('连接') || errorMessage.includes('网络')) {
+                    recordDataSourceFailure(selectedSource, 'timeout');
+                } else if (errorMessage.includes('API') || errorMessage.includes('密钥')) {
+                    recordDataSourceFailure(selectedSource, 'api_error');
+                } else {
+                    recordDataSourceFailure(selectedSource, 'unknown');
+                }
+            }
         }
     })
     .catch(error => {
@@ -722,17 +750,314 @@ function showStockDataMessage(message, type) {
     }
 }
 
+// API Key配置管理功能
+function loadApiKeysStatus() {
+    fetch('/api/config/api_keys')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                updateApiKeysStatus(data.api_keys);
+            } else {
+                showStockDataMessage('获取API密钥状态失败: ' + data.error, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('加载API密钥状态失败:', error);
+            showStockDataMessage('加载API密钥状态失败', 'error');
+        });
+}
+
+function updateApiKeysStatus(apiKeysStatus) {
+    // 更新输入框的占位符，显示是否已配置
+    Object.keys(apiKeysStatus).forEach(source => {
+        const input = document.getElementById(source + 'ApiKey');
+        if (input) {
+            const status = apiKeysStatus[source];
+            if (status.configured) {
+                input.placeholder = `已配置 (${status.length} 字符)`;
+                input.classList.add('is-valid');
+            } else {
+                input.placeholder = `输入${source}API密钥`;
+                input.classList.remove('is-valid');
+            }
+        }
+    });
+}
+
+function saveApiKeys() {
+    const apiKeys = {
+        akshare: akshareApiKey ? akshareApiKey.value : '',
+        tushare: tushareApiKey ? tushareApiKey.value : '',
+        alpha_vantage: alphaVantageApiKey ? alphaVantageApiKey.value : '',
+        quandl: quandlApiKey ? quandlApiKey.value : ''
+    };
+
+    // 只保存非空的API密钥
+    const nonEmptyKeys = {};
+    Object.keys(apiKeys).forEach(key => {
+        if (apiKeys[key].trim()) {
+            nonEmptyKeys[key] = apiKeys[key].trim();
+        }
+    });
+
+    if (Object.keys(nonEmptyKeys).length === 0) {
+        showStockDataMessage('请至少输入一个API密钥', 'warning');
+        return;
+    }
+
+    // 显示保存进度
+    const saveBtn = document.getElementById('saveApiKeysBtn');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> 保存中...';
+    saveBtn.disabled = true;
+
+    showStockDataMessage('正在保存API密钥...', 'info');
+
+    fetch('/api/config/api_keys', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            api_keys: nonEmptyKeys
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showStockDataMessage(
+                `API密钥保存成功！${data.message}`,
+                'success'
+            );
+
+            // 重新加载状态
+            setTimeout(() => {
+                loadApiKeysStatus();
+            }, 1000);
+
+            // 清空输入框
+            Object.keys(apiKeys).forEach(key => {
+                const input = document.getElementById(key + 'ApiKey');
+                if (input) {
+                    input.value = '';
+                }
+            });
+
+        } else {
+            showStockDataMessage('保存失败: ' + (data.error || '未知错误'), 'error');
+        }
+    })
+    .catch(error => {
+        console.error('保存API密钥失败:', error);
+        showStockDataMessage('保存失败: ' + error.message, 'error');
+    })
+    .finally(() => {
+        // 恢复按钮状态
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+    });
+}
+
+function testApiConnection(source) {
+    return fetch(`/api/config/test_connection/${source}`)
+        .then(response => response.json())
+        .then(data => {
+            return {
+                source: source,
+                status: data.status,
+                message: data.message,
+                has_api_key: data.has_api_key
+            };
+        })
+        .catch(error => {
+            return {
+                source: source,
+                status: 'error',
+                message: `连接测试失败: ${error.message}`,
+                has_api_key: false
+            };
+        });
+}
+
+function testAllConnections() {
+    const testBtn = document.getElementById('testAllConnectionsBtn');
+    const originalText = testBtn.innerHTML;
+    testBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> 测试中...';
+    testBtn.disabled = true;
+
+    showStockDataMessage('正在测试所有数据源连接...', 'info');
+
+    const sources = ['local', 'akshare', 'sina', 'tencent', 'eastmoney'];
+    const testPromises = sources.map(source => testApiConnection(source));
+
+    Promise.all(testPromises)
+        .then(results => {
+            updateConnectionStatus(results);
+            showStockDataMessage('连接测试完成', 'success');
+        })
+        .catch(error => {
+            console.error('测试连接失败:', error);
+            showStockDataMessage('测试连接失败: ' + error.message, 'error');
+        })
+        .finally(() => {
+            // 恢复按钮状态
+            testBtn.innerHTML = originalText;
+            testBtn.disabled = false;
+        });
+}
+
+function updateConnectionStatus(results) {
+    const statusList = document.getElementById('connectionStatusList');
+    if (!statusList) return;
+
+    let html = '';
+    results.forEach(result => {
+        const statusClass = result.status === 'success' ? 'text-success' :
+                           result.status === 'error' ? 'text-danger' : 'text-warning';
+        const icon = result.status === 'success' ? 'bi-check-circle' :
+                    result.status === 'error' ? 'bi-x-circle' : 'bi-question-circle';
+
+        html += `
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span>
+                    <i class="bi ${icon} ${statusClass}"></i>
+                    ${result.source}
+                </span>
+                <span class="${statusClass} small">${result.message}</span>
+            </div>
+        `;
+    });
+
+    statusList.innerHTML = html;
+}
+
+// 数据源监控和建议功能
+function checkDataSourceSuggestion(source) {
+    if (!source || source === 'local') {
+        hideDataSourceSuggestion();
+        return;
+    }
+
+    fetch(`/api/data_source_suggestion/${source}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok' && data.suggestion) {
+                const suggestion = data.suggestion;
+                if (suggestion.should_suggest) {
+                    showDataSourceSuggestion(source, suggestion);
+                } else {
+                    hideDataSourceSuggestion();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('检查数据源建议失败:', error);
+        });
+}
+
+function showDataSourceSuggestion(source, suggestion) {
+    if (!dataSourceSuggestion || !suggestionMessage) return;
+
+    const message = `${source} ${suggestion.suggestion_reason}`;
+    suggestionMessage.textContent = message;
+    dataSourceSuggestion.style.display = 'block';
+
+    // 滚动到建议区域
+    setTimeout(() => {
+        dataSourceSuggestion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+}
+
+function hideDataSourceSuggestion() {
+    if (dataSourceSuggestion) {
+        dataSourceSuggestion.style.display = 'none';
+    }
+}
+
+function recordDataSourceFailure(source, errorType = 'timeout') {
+    fetch(`/api/record_failure/${source}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            error_type: errorType
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success && data.suggestion && data.suggestion.should_suggest) {
+            showDataSourceSuggestion(source, data.suggestion);
+        }
+    })
+    .catch(error => {
+        console.error('记录数据源失败时出错:', error);
+    });
+}
+
+function loadDataSourceStats() {
+    fetch('/api/data_source_stats')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                updateDataSourceStatsDisplay(data.stats);
+            }
+        })
+        .catch(error => {
+            console.error('加载数据源统计失败:', error);
+        });
+}
+
+function updateDataSourceStatsDisplay(stats) {
+    // 更新连接状态显示，包含统计信息
+    const statusList = document.getElementById('connectionStatusList');
+    if (!statusList) return;
+
+    let html = '';
+    Object.keys(stats).forEach(source => {
+        const stat = stats[source];
+        const statusClass = stat.success_rate >= 80 ? 'text-success' :
+                           stat.success_rate >= 50 ? 'text-warning' : 'text-danger';
+        const icon = stat.success_rate >= 80 ? 'bi-check-circle' :
+                    stat.success_rate >= 50 ? 'bi-exclamation-triangle' : 'bi-x-circle';
+
+        const suggestionBadge = stat.should_suggest_api ?
+            '<span class="badge bg-warning ms-1">建议配置API</span>' : '';
+
+        html += `
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <span>
+                    <i class="bi ${icon} ${statusClass}"></i>
+                    ${source}
+                    ${suggestionBadge}
+                </span>
+                <span class="${statusClass} small">
+                    成功率: ${stat.success_rate}%
+                    ${stat.failure_count > 0 ? `(失败${stat.failure_count}次)` : ''}
+                </span>
+            </div>
+        `;
+    });
+
+    statusList.innerHTML = html;
+}
+
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 加载股票数据状态
     loadStockDataStatus();
 
+    // 加载API密钥状态
+    loadApiKeysStatus();
+
+    // 加载数据源统计
+    loadDataSourceStats();
+
     // 股票数据文件选择事件
     if (stockDataFile) {
         stockDataFile.addEventListener('change', function() {
-            const label = this.nextElementSibling;
-            const fileName = this.files[0] ? this.files[0].name : '选择CSV文件...';
-            label.textContent = fileName;
+            const fileName = this.files[0] ? this.files[0].name : '';
+            // 更新文件选择提示（Bootstrap 5不需要label更新）
         });
     }
 
@@ -745,4 +1070,83 @@ document.addEventListener('DOMContentLoaded', function() {
     if (autoUpdateBtn) {
         autoUpdateBtn.addEventListener('click', autoUpdateStockData);
     }
+
+    // API Key配置相关事件
+    if (saveApiKeysBtn) {
+        saveApiKeysBtn.addEventListener('click', saveApiKeys);
+    }
+
+    if (testAllConnectionsBtn) {
+        testAllConnectionsBtn.addEventListener('click', testAllConnections);
+    }
+
+    // 数据源选择变化事件
+    if (apiSource) {
+        apiSource.addEventListener('change', function() {
+            const selectedSource = this.value;
+            checkDataSourceSuggestion(selectedSource);
+        });
+
+        // 初始检查
+        checkDataSourceSuggestion(apiSource.value);
+    }
+
+    // 跳转到API配置按钮
+    if (goToApiConfigBtn) {
+        goToApiConfigBtn.addEventListener('click', function() {
+            // 滚动到API配置区域
+            const apiConfigSection = document.querySelector('#stockDataPanel');
+            if (apiConfigSection) {
+                apiConfigSection.scrollIntoView({ behavior: 'smooth' });
+
+                // 展开面板（如果是折叠的）
+                const collapseElement = document.getElementById('stockDataPanel');
+                if (collapseElement && !collapseElement.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                        show: true
+                    });
+                }
+
+                // 高亮API配置区域
+                const apiKeySection = document.querySelector('h6:contains("API密钥配置")');
+                if (apiKeySection) {
+                    apiKeySection.style.backgroundColor = '#fff3cd';
+                    setTimeout(() => {
+                        apiKeySection.style.backgroundColor = '';
+                    }, 3000);
+                }
+            }
+
+            // 隐藏建议提示
+            hideDataSourceSuggestion();
+        });
+    }
+
+    // 单个API测试按钮事件
+    const testButtons = [
+        { id: 'testAkshareBtn', source: 'akshare' },
+        { id: 'testTushareBtn', source: 'tushare' },
+        { id: 'testAlphaVantageBtn', source: 'alpha_vantage' },
+        { id: 'testQuandlBtn', source: 'quandl' }
+    ];
+
+    testButtons.forEach(({ id, source }) => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', () => {
+                btn.innerHTML = '<i class="bi bi-hourglass-split"></i>';
+                btn.disabled = true;
+
+                testApiConnection(source)
+                    .then(result => {
+                        const statusClass = result.status === 'success' ? 'text-success' : 'text-danger';
+                        showStockDataMessage(`${source}: ${result.message}`, result.status === 'success' ? 'success' : 'error');
+                    })
+                    .finally(() => {
+                        btn.innerHTML = '<i class="bi bi-wifi"></i> 测试';
+                        btn.disabled = false;
+                    });
+            });
+        }
+    });
 });

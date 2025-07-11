@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-股票代码补全Web应用
+股票代码名称补全Web应用
 支持上传CSV/Excel文件，自动补全股票名称
 """
 
@@ -16,6 +16,7 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 from stock_name_matcher import StockNameMatcher
 from auto_file_manager import AutoFileManager
+from config_manager import config_manager
 
 # 配置日志
 logging.basicConfig(
@@ -233,7 +234,7 @@ def upload_file():
 
 @app.route('/process', methods=['POST'])
 def process_file():
-    """处理股票代码补全"""
+    """处理股票代码名称补全"""
     try:
         data = request.get_json()
         filename = data.get('filename')
@@ -597,10 +598,200 @@ def auto_update_stock_data():
             'error': str(e)
         }), 500
 
+@app.route('/api/config', methods=['GET'])
+def get_config():
+    """获取配置信息"""
+    try:
+        config_summary = config_manager.get_config_summary()
+        return jsonify({
+            'status': 'ok',
+            'config': config_summary
+        })
+    except Exception as e:
+        logger.error(f"获取配置失败: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/config/api_keys', methods=['GET'])
+def get_api_keys():
+    """获取API密钥配置状态"""
+    try:
+        api_keys = config_manager.config_data.get("api_keys", {})
+        # 只返回是否配置了密钥，不返回实际密钥值
+        api_keys_status = {}
+        for source, encrypted_key in api_keys.items():
+            decrypted_key = config_manager._decrypt_value(encrypted_key)
+            api_keys_status[source] = {
+                'configured': bool(decrypted_key),
+                'length': len(decrypted_key) if decrypted_key else 0
+            }
+
+        return jsonify({
+            'status': 'ok',
+            'api_keys': api_keys_status
+        })
+    except Exception as e:
+        logger.error(f"获取API密钥状态失败: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/config/api_keys', methods=['POST'])
+def set_api_keys():
+    """设置API密钥"""
+    try:
+        data = request.get_json()
+        api_keys = data.get('api_keys', {})
+
+        success_count = 0
+        errors = []
+
+        for source, api_key in api_keys.items():
+            if config_manager.set_api_key(source, api_key):
+                success_count += 1
+            else:
+                errors.append(f"设置 {source} API密钥失败")
+
+        return jsonify({
+            'success': success_count > 0,
+            'message': f'成功设置 {success_count} 个API密钥',
+            'errors': errors
+        })
+
+    except Exception as e:
+        logger.error(f"设置API密钥失败: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/config/test_connection/<source>')
+def test_api_connection(source):
+    """测试API连接"""
+    try:
+        result = config_manager.test_api_connection(source)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"测试API连接失败: {e}")
+        return jsonify({
+            'source': source,
+            'status': 'error',
+            'message': f'测试连接时发生错误: {str(e)}',
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
+@app.route('/api/config/data_sources', methods=['GET'])
+def get_data_sources_config():
+    """获取数据源配置"""
+    try:
+        config = config_manager.get_data_source_config()
+        return jsonify({
+            'status': 'ok',
+            'config': config
+        })
+    except Exception as e:
+        logger.error(f"获取数据源配置失败: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/config/data_sources', methods=['POST'])
+def set_data_sources_config():
+    """设置数据源配置"""
+    try:
+        data = request.get_json()
+        config = data.get('config', {})
+
+        if config_manager.set_data_source_config(config):
+            return jsonify({
+                'success': True,
+                'message': '数据源配置更新成功'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': '数据源配置更新失败'
+            }), 500
+
+    except Exception as e:
+        logger.error(f"设置数据源配置失败: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/data_source_stats')
+def get_data_source_stats():
+    """获取数据源统计信息"""
+    try:
+        stats = config_manager.get_data_source_stats()
+        return jsonify({
+            'status': 'ok',
+            'stats': stats
+        })
+    except Exception as e:
+        logger.error(f"获取数据源统计失败: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/data_source_suggestion/<source>')
+def get_data_source_suggestion(source):
+    """获取数据源API配置建议"""
+    try:
+        suggestion = config_manager.should_suggest_api_config(source)
+        return jsonify({
+            'status': 'ok',
+            'source': source,
+            'suggestion': suggestion
+        })
+    except Exception as e:
+        logger.error(f"获取数据源建议失败: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/api/record_failure/<source>', methods=['POST'])
+def record_data_source_failure(source):
+    """记录数据源失败"""
+    try:
+        data = request.get_json() or {}
+        error_type = data.get('error_type', 'timeout')
+
+        success = config_manager.record_data_source_failure(source, error_type)
+
+        if success:
+            # 检查是否应该建议配置API
+            suggestion = config_manager.should_suggest_api_config(source)
+
+            return jsonify({
+                'success': True,
+                'message': f'已记录 {source} 数据源失败',
+                'suggestion': suggestion
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': '记录失败信息时出错'
+            }), 500
+
+    except Exception as e:
+        logger.error(f"记录数据源失败时出错: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 if __name__ == '__main__':
-    print("🚀 启动股票代码补全Web应用...")
+    print("🚀 启动股票代码名称补全Web应用...")
     print("📊 访问地址: http://localhost:5000")
     print("📁 上传文件夹: uploads/")
     print("📁 结果文件夹: result/")
-    
+
     app.run(debug=True, host='0.0.0.0', port=5000)
