@@ -140,8 +140,26 @@ cython_debug/
 
 # 项目特定的忽略文件
 
-# 日志文件
+# 配置和敏感文件
+config.json
+.encryption_key
+
+# 运行时文件
+uploads/
+result/
 logs/
+cache/
+backup/
+temp/
+test_results/
+new_stock_files/processed/
+archive/
+
+# 数据文件
+data/
+stock_name_list/
+
+# 日志文件
 *.log
 debug.log
 app.log

@@ -1,9 +1,0 @@
-2025-06-20 14:45:01,642 - WARNING -  * Debugger is active!
-2025-06-20 14:45:01,645 - INFO -  * Debugger PIN: 678-550-451
-2025-06-20 14:47:17,016 - INFO - 正在使用 akshare 加载A股股票列表...
-2025-06-20 14:47:17,016 - INFO - 正在从AKShare加载A股股票列表...
-2025-06-20 14:47:25,833 - INFO - AKShare成功加载 5725 只股票信息
-2025-06-20 14:47:25,834 - INFO - 成功加载 5725 只股票信息
-2025-06-20 14:47:25,845 - INFO - 127.0.0.1 - - [20/Jun/2025 14:47:25] "GET /api/status HTTP/1.1" 200 -
-2025-06-20 14:48:06,804 - INFO -  * Detected change in 'C:\\Users\\weiruiqiang\\Desktop\\stock_name_matcher\\auto_file_manager.py', reloading
-2025-06-20 14:48:06,806 - INFO -  * Detected change in 'C:\\Users\\weiruiqiang\\Desktop\\stock_name_matcher\\auto_file_manager.py', reloading
